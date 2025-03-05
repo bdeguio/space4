@@ -40,11 +40,12 @@ document.addEventListener("DOMContentLoaded", () => {
         positionIndex = (positionIndex + roll) % path.length; // Move forward correct steps
 
         //If passing GO (position 0), collect $200
-        if (positionIndex < roll) {
+        let nextIndex = (positionIndex + roll) % path.length;
+        if (nextIndex < positionIndex) { // Passed GO
             balance +=200;
             console.log("Passed Go! Collect $200!");
         }
-
+        positionIndex = nextIndex; // Move player
         updatePlayerPosition();
     });
 
