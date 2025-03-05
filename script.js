@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const roll = Math.floor(Math.random() * 6) + 1; // Dice roll (1-6)
         diceResult.textContent = `You rolled a ${roll}!`;
 
-        positionIndex = (positionIndex + roll) % path.length; // Loop back after reaching last square
+        positionIndex = (positionIndex + roll) % path.length; // Move forward exact steps
 
         updatePlayerPosition();
     });
