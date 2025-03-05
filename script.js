@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     rollButton.addEventListener("click", () => {
         const roll = Math.floor(Math.random() * 6) + 1; // Dice roll (1-6)
-        diceResult.textContent = `You rolled a ${roll}!`;
+        diceResult.textContent = `You rolled a ${roll}`;
         
         position += roll;
         if (position >= cells.length) position = cells.length - 1; // Prevent overflow
