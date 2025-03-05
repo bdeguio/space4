@@ -6,19 +6,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const positionDisplay = document.getElementById("position");
 
     const boardSize = 10; // 10x10 grid (100 squares)
-    let positionIndex = 0; // Player's position in the border path
+    let positionIndex = 0; // Track player's position in the path
 
-    // Define the path only on the outer border (clockwise)
-    const path = [];
-
-    // Top row (left to right)
-    for (let i = 0; i < boardSize; i++) path.push(i);
-    // Right column (top to bottom)
-    for (let i = boardSize; i < boardSize * boardSize; i += boardSize) path.push(i);
-    // Bottom row (right to left)
-    for (let i = boardSize * boardSize - 1; i >= boardSize * (boardSize - 1); i--) path.push(i);
-    // Left column (bottom to top)
-    for (let i = boardSize * (boardSize - 1); i >= 0; i -= boardSize) path.push(i);
+    // Define the path to move only through the border squares
+    const path = [
+        // Top row (left to right)
+        0,1,2,3,4,5,6,7,8,9,
+        // Right column (top to bottom)
+        19,29,39,49,59,69,79,89,99,
+        // Bottom row (right to left)
+        98,97,96,95,94,93,92,91,90,
+        // Left column (bottom to top)
+        80,70,60,50,40,30,20,10
+    ];
 
     // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
