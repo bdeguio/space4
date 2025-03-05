@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.board {
+    width: 300px;
+    height: 300px;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    position: relative;
+    background-color: #f8f8f8;
+}
+
+.player {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 50%;
+}
