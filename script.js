@@ -4,9 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const rollButton = document.getElementById("rollButton");
     const diceResult = document.getElementById("diceResult");
     const positionDisplay = document.getElementById("position");
+    const balanceDisplay = document.getElementById("balance");
 
     const boardSize = 10; // 10x10 grid (100 squares)
     let positionIndex = 0; // Track player's position in the path
+    let balance = 1500; // Players starting money
 
     // Define the path to move only through the border squares
     const path = [
@@ -37,6 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         positionIndex = (positionIndex + roll) % path.length; // Move forward correct steps
 
+        //If passing GO (position 0), collect $200
+        if (positionIndex < roll) {
+            balance +=200;
+            console.log("Passed Go! Collect $200!");
+        }
+
         updatePlayerPosition();
     });
 
@@ -44,5 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cells.forEach(cell => cell.innerHTML = ""); // Clear previous position
         cells[path[positionIndex]].appendChild(player); // Move player only in path squares
         positionDisplay.textContent = `Position: ${path[positionIndex]}`;
+        balanceDisplay.textContent = `Balance: $${balance}`;
     }
 });
