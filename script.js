@@ -6,7 +6,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const positionDisplay = document.getElementById("position");
 
     const boardSize = 10; // 10x10 grid (100 squares)
-    let position = 0; // Player's position (starting at 0)
+    let positionIndex = 0; // Player's position in the border path
+
+    // Define the path only on the outer border (clockwise)
+    const path = [];
+
+    // Top row (left to right)
+    for (let i = 0; i < boardSize; i++) path.push(i);
+    // Right column (top to bottom)
+    for (let i = boardSize; i < boardSize * boardSize; i += boardSize) path.push(i);
+    // Bottom row (right to left)
+    for (let i = boardSize * boardSize - 1; i >= boardSize * (boardSize - 1); i--) path.push(i);
+    // Left column (bottom to top)
+    for (let i = boardSize * (boardSize - 1); i >= 0; i -= boardSize) path.push(i);
 
     // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
@@ -23,20 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const roll = Math.floor(Math.random() * 6) + 1; // Dice roll (1-6)
         diceResult.textContent = `You rolled a ${roll}!`;
 
-        position += roll;
-
-        // Loop back to the beginning if player reaches the end
-        if (position >= cells.length) {
-            position = position % cells.length;
-            console.log("Passed GO! Collect $200!");
-        }
+        positionIndex = (positionIndex + roll) % path.length; // Loop back after reaching last square
 
         updatePlayerPosition();
     });
 
     function updatePlayerPosition() {
         cells.forEach(cell => cell.innerHTML = ""); // Clear previous position
-        cells[position].appendChild(player); // Move player to new position
-        positionDisplay.textContent = `Position: ${position}`;
+        cells[path[positionIndex]].appendChild(player); // Move player only in path squares
+        positionDisplay.textContent = `Position: ${path[positionIndex]}`;
     }
 });
