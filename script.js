@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
         let previousIndex = positionIndex; // Save previous position before moving
         positionIndex = (positionIndex + roll) % path.length; // Move forward
 
-        // Check if player **landed on or passed GO (position 0)**
-        if (previousIndex > positionIndex || positionIndex === 0) {
+        // Check if player **completed a full loop** (crossed index 0)
+        if (positionIndex < previousIndex) {
             balance += 200;
-            console.log("Passed or Landed on GO! Collect $200!");
+            console.log("Completed a full loop! +$200 added.");
         }
 
         updatePlayerPosition();
