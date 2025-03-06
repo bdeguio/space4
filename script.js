@@ -6,39 +6,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const positionDisplay = document.getElementById("position");
     const balanceDisplay = document.getElementById("balance");
     const buyButton = document.getElementById("buyButton");
+    const propertiesDisplay = document.getElementById("properties");
 
-    const boardSize = 10; // 10x10 grid (only border positions are used)
+    const boardSize = 10; // 10x10 grid (100 squares)
     let positionIndex = 0; // Track player's position in the path
     let balance = 1500; // Player's starting money
+    let ownedProperties = []; // List of player's owned properties
 
     // Define the path to move only through the border squares
     const path = [
-        0,1,2,3,4,5,6,7,8,9,  // Top row
-        19,29,39,49,59,69,79,89,99,  // Right column (down)
-        98,97,96,95,94,93,92,91,90,  // Bottom row (right to left)
-        80,70,60,50,40,30,20,10  // Left column (up)
+        0,1,2,3,4,5,6,7,8,9,
+        19,29,39,49,59,69,79,89,99,
+        98,97,96,95,94,93,92,91,90,
+        80,70,60,50,40,30,20,10
     ];
 
-    // Assign property prices based on Monopoly board values
+    // Define property prices based on Monopoly board values
     const propertyPrices = {
-        0: 0,  // GO
-        1: 60, 3: 60, 5: 200, 6: 100, 8: 100, 9: 120,  // First row
-        19: 140, 29: 160, 39: 200, 49: 220, 59: 240, 69: 260, 79: 280, 89: 300, 99: 0,  // Right column
-        98: 320, 97: 0, 96: 300, 95: 0, 94: 280, 93: 260, 92: 240, 91: 220, 90: 0,  // Bottom row
-        80: 200, 70: 180, 60: 160, 50: 140, 40: 0, 30: 120, 20: 0, 10: 0  // Left column
+        0: 0, 9: 0, 99: 0, 90: 0, // Non-purchasable spaces
+        1: 60, 3: 60, 6: 100, 8: 100, 
+        19: 140, 29: 160, 39: 200, 
+        49: 220, 59: 240, 69: 260, 79: 280, 89: 300, 
+        98: 320, 97: 350, 96: 400, 95: 450, 94: 500,
+        93: 550, 92: 600, 91: 650, 80: 700,
+        70: 750, 60: 800, 50: 850, 40: 900,
+        30: 950, 20: 1000, 10: 0
     };
 
-    const ownedProperties = [];
-
-    // Generate only the border grid cells
+    // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
-        if (path.includes(i)) {
-            const cell = document.createElement("div");
-            cell.classList.add("cell");
-            cell.setAttribute("data-index", i);
-            cell.textContent = i;
-            board.appendChild(cell);
-        }
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.setAttribute("data-index", i);
+        board.appendChild(cell);
     }
 
     const cells = document.querySelectorAll(".cell");
@@ -75,6 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
         cells[path[positionIndex]].appendChild(player);
         positionDisplay.textContent = `Position: ${path[positionIndex]}`;
         balanceDisplay.textContent = `Balance: $${balance}`;
-        buyButton.disabled = (propertyPrices[path[positionIndex]] === 0 || ownedProperties.includes(path[positionIndex]));
+        propertiesDisplay.textContent = `Owned Properties: ${ownedProperties.length > 0 ? ownedProperties.join(", ") : "None"}`;
+
+        // Update Buy Button visibility
+        let currentPosition = path[positionIndex];
+        buyButton.style.display = (propertyPrices[currentPosition] > 0 && !ownedProperties.includes(currentPosition)) ? "block" : "none";
     }
 });
