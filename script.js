@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         diceResult.textContent = `You rolled a ${roll}`;
 
         let previousIndex = positionIndex; // Save previous position before moving
-        positionIndex = (positionIndex + roll) % path.length; // Move forward
+        positionIndex = (positionIndex + rollTotal) % path.length; // Move forward
 
         // Check if player completed a loop (crossed GO)
         if (positionIndex < previousIndex) {
