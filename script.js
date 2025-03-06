@@ -6,6 +6,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const positionDisplay = document.getElementById("position");
     const balanceDisplay = document.getElementById("balance");
     const propertiesDisplay = document.getElementById("properties");
+    const buyButton = document.createElement("button");
+    buyButton.textContent = "Buy Property";
+    buyButton.style.display = "none";
+    document.body.appendChild(buyButton);
 
     const boardSize = 10; // 10x10 grid (100 squares)
     let positionIndex = 0; // Track player's position in the path
@@ -79,19 +83,24 @@ document.addEventListener("DOMContentLoaded", () => {
         if (properties[currentPosition] && properties[currentPosition].owner === null) {
             let price = properties[currentPosition].price;
 
-            // Offer to purchase the property
+            // Display buy button if player has enough balance
             if (balance >= price) {
-                setTimeout(() => { // Prevent blocking UI updates
-                    let buy = confirm(`You landed on position ${currentPosition}. Would you like to buy it for $${price}?`);
-                    if (buy) {
-                        balance -= price;
-                        properties[currentPosition].owner = "Player";
-                        ownedProperties.push(currentPosition);
-                        console.log(`Property ${currentPosition} purchased for $${price}.`);
-                        updatePlayerUI();
-                    }
-                }, 100);
+                buyButton.style.display = "block";
+                buyButton.onclick = () => purchaseProperty(currentPosition, price);
+            } else {
+                buyButton.style.display = "none";
             }
+        } else {
+            buyButton.style.display = "none";
         }
+    }
+
+    function purchaseProperty(position, price) {
+        balance -= price;
+        properties[position].owner = "Player";
+        ownedProperties.push(position);
+        console.log(`Property ${position} purchased for $${price}.`);
+        updatePlayerUI();
+        buyButton.style.display = "none";
     }
 });
