@@ -22,6 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
         80,70,60,50,40,30,20,10
     ];
 
+    // Define property prices for each position
+    const properties = {};
+    path.forEach((position, index) => {
+        if (position !== 0) { // Exclude GO
+            properties[position] = {
+                price: Math.floor(Math.random() * 200) + 100, // Random price between $100-$300
+                owner: null
+            };
+        }
+    });
+
+
     // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
         const cell = document.createElement("div");
@@ -54,5 +66,24 @@ document.addEventListener("DOMContentLoaded", () => {
         cells[path[positionIndex]].appendChild(player); // Move player only in path squares
         positionDisplay.textContent = `Position: ${path[positionIndex]}`;
         balanceDisplay.textContent = `Balance: $${balance}`;
+    }
+});
+
+function checkProperty() {
+        let currentPosition = path[positionIndex];
+
+        if (properties[currentPosition] && properties[currentPosition].owner === null) {
+            let price = properties[currentPosition].price;
+            if (balance >= price) {
+                let buy = confirm(`You landed on position ${currentPosition}. Would you like to buy it for $${price}?`);
+                if (buy) {
+                    balance -= price;
+                    properties[currentPosition].owner = "Player";
+                    ownedProperties.push(currentPosition);
+                    console.log(`Property ${currentPosition} purchased for $${price}.`);
+                    updatePlayerPosition();
+                }
+            }
+        }
     }
 });
