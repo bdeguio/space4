@@ -6,10 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const positionDisplay = document.getElementById("position");
     const balanceDisplay = document.getElementById("balance");
     const propertiesDisplay = document.getElementById("properties");
-    const buyButton = document.createElement("button");
-    buyButton.textContent = "Buy Property";
-    buyButton.style.display = "none";
-    document.body.appendChild(buyButton);
+    const buyButton = document.getElementById("buyButton");
 
     const boardSize = 10; // 10x10 grid (100 squares)
     let positionIndex = 0; // Track player's position in the path
@@ -48,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     rollButton.addEventListener("click", () => {
         const roll = Math.floor(Math.random() * 6) + 1; // Dice roll (1-6)
-        diceResult.textContent = `You rolled a ${roll}!`;
+        diceResult.textContent = `You rolled a ${roll}`;
 
         let previousIndex = positionIndex; // Save previous position before moving
         positionIndex = (positionIndex + roll) % path.length; // Move forward
