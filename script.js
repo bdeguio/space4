@@ -44,7 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePlayerUI(); // Initial UI update
 
     rollButton.addEventListener("click", () => {
-        const roll = Math.floor(Math.random() * 6) + 1; // Dice roll (1-6)
+        const roll1 = Math.floor(Math.random() * 6) + 1; // First dice roll (1-6)
+        const roll2 = Math.floor(Math.random() * 6) + 1; // Second dice roll (1-6)
+        const rollTotal = roll1 + roll2; // Sum of both dice
         diceResult.textContent = `You rolled a ${roll}`;
 
         let previousIndex = positionIndex; // Save previous position before moving
