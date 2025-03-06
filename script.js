@@ -5,10 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const diceResult = document.getElementById("diceResult");
     const positionDisplay = document.getElementById("position");
     const balanceDisplay = document.getElementById("balance");
+    const propertiesDisplay = document.getElementById("properties");
 
     const boardSize = 10; // 10x10 grid (100 squares)
     let positionIndex = 0; // Track player's position in the path
     let balance = 1500; // Player's starting money
+    let ownedProperties = []; // List of player's owned properties/
 
     // Define the path to move only through the border squares
     const path = [
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     path.forEach((position, index) => {
         if (position !== 0) { // Exclude GO
             properties[position] = {
-                price: Math.floor(Math.random() * 200) + 100, // Random price between $100-$300
+                price: 100,
                 owner: null
             };
         }
@@ -59,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         updatePlayerPosition();
+        offerPropertyPurchase();
     });
 
     function updatePlayerPosition() {
@@ -66,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cells[path[positionIndex]].appendChild(player); // Move player only in path squares
         positionDisplay.textContent = `Position: ${path[positionIndex]}`;
         balanceDisplay.textContent = `Balance: $${balance}`;
+        propertiesDisplay.textContent = `Owned Properties: ${ownedProperties.length > 0 ? ownedProperties.join(", ") : "None"}`;
     }
 });
 
