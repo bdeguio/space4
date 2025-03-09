@@ -13,8 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let balance = 1500; // Player's starting money
     let ownedProperties = []; // List of player's owned properties
 
-    // Load properties from external properties.js
+    // Load property data from properties.js
     loadProperties();
+
+    // Define the path to move only through the border squares
+    const path = Object.keys(properties).map(Number);
 
     // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
