@@ -13,24 +13,31 @@ document.addEventListener("DOMContentLoaded", () => {
     let balance = 1500; // Player's starting money
     let ownedProperties = []; // List of player's owned properties
 
-    // Define the path to move only through the border squares
-    const path = [
-        0,1,2,3,4,5,6,7,8,9,  // Top row
-        19,29,39,49,59,69,79,89,99,  // Right column (down)
-        98,97,96,95,94,93,92,91,90,  // Bottom row (right to left)
-        80,70,60,50,40,30,20,10  // Left column (up)
-    ];
+    // Define properties with names and prices
+    const properties = {
+        0: { name: "GO", price: 0, owner: null },
+        1: { name: "Mediterranean Avenue", price: 60, owner: null },
+        2: { name: "Community Chest", price: 0, owner: null },
+        3: { name: "Baltic Avenue", price: 60, owner: null },
+        4: { name: "Income Tax", price: 0, owner: null },
+        5: { name: "Reading Railroad", price: 200, owner: null },
+        6: { name: "Oriental Avenue", price: 100, owner: null },
+        7: { name: "Chance", price: 0, owner: null },
+        8: { name: "Vermont Avenue", price: 100, owner: null },
+        9: { name: "Connecticut Avenue", price: 120, owner: null },
+        19: { name: "St. Charles Place", price: 140, owner: null },
+        29: { name: "Electric Company", price: 150, owner: null },
+        39: { name: "States Avenue", price: 140, owner: null },
+        49: { name: "Virginia Avenue", price: 160, owner: null },
+        59: { name: "Pennsylvania Railroad", price: 200, owner: null },
+        69: { name: "St. James Place", price: 180, owner: null },
+        79: { name: "Community Chest", price: 0, owner: null },
+        89: { name: "Tennessee Avenue", price: 180, owner: null },
+        99: { name: "New York Avenue", price: 200, owner: null }
+    };
 
-    // Define property ownership and pricing
-    const properties = {};
-    path.forEach(position => {
-        if (position !== 0) { // Exclude GO
-            properties[position] = {
-                price: 100, // Fixed price of $100
-                owner: null
-            };
-        }
-    });
+    // Define movement path
+    const path = Object.keys(properties).map(Number);
 
     // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
@@ -47,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const roll1 = Math.floor(Math.random() * 6) + 1; // First dice roll (1-6)
         const roll2 = Math.floor(Math.random() * 6) + 1; // Second dice roll (1-6)
         const rollTotal = roll1 + roll2; // Sum of both dice
-        diceResult.textContent = `You rolled a ${rollTotal}`;
+        diceResult.textContent = `You rolled a ${roll1} and a ${roll2} (Total: ${rollTotal})!`;
 
         let previousIndex = positionIndex; // Save previous position before moving
         positionIndex = (positionIndex + rollTotal) % path.length; // Move forward
@@ -70,35 +77,31 @@ document.addEventListener("DOMContentLoaded", () => {
         cells[path[positionIndex]].appendChild(player);
 
         // Update UI elements
-        positionDisplay.textContent = `Position: ${path[positionIndex]}`;
+        let property = properties[path[positionIndex]];
+        positionDisplay.textContent = `Position: ${property.name} - $${property.price}`;
         balanceDisplay.textContent = `Balance: $${balance}`;
         propertiesDisplay.textContent = `Owned Properties: ${ownedProperties.length > 0 ? ownedProperties.join(", ") : "None"}`;
     }
 
     function checkPropertyPurchase() {
         let currentPosition = path[positionIndex];
+        let property = properties[currentPosition];
 
         // Ensure the property exists and is unowned
-        if (properties[currentPosition] && properties[currentPosition].owner === null) {
-            let price = properties[currentPosition].price;
-
+        if (property && property.owner === null && property.price > 0) {
             // Display buy button if player has enough balance
-            if (balance >= price) {
-                buyButton.style.display = "block";
-                buyButton.onclick = () => purchaseProperty(currentPosition, price);
-            } else {
-                buyButton.style.display = "none";
-            }
+            buyButton.style.display = balance >= property.price ? "block" : "none";
+            buyButton.onclick = () => purchaseProperty(currentPosition, property);
         } else {
             buyButton.style.display = "none";
         }
     }
 
-    function purchaseProperty(position, price) {
-        balance -= price;
-        properties[position].owner = "Player";
-        ownedProperties.push(position);
-        console.log(`Property ${position} purchased for $${price}.`);
+    function purchaseProperty(position, property) {
+        balance -= property.price;
+        property.owner = "Player";
+        ownedProperties.push(property.name);
+        console.log(`Property ${property.name} purchased for $${property.price}.`);
         updatePlayerUI();
         buyButton.style.display = "none";
     }
