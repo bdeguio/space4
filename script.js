@@ -54,7 +54,13 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Define movement path
-    const path = Object.keys(properties).map(Number);
+     const path = [
+        0,1,2,3,4,5,6,7,8,9,  // Top row
+        19,29,39,49,59,69,79,89,99,  // Right column (down)
+        98,97,96,95,94,93,92,91,90,  // Bottom row (right to left)
+        80,70,60,50,40,30,20,10  // Left column (up)
+    ];
+
 
     // Generate 100 grid cells
     for (let i = 0; i < boardSize * boardSize; i++) {
