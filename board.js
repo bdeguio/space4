@@ -1,12 +1,7 @@
-// board.js
+export const boardSize = 11;
 
-// Define board size
-const boardSize = 11;
-    let positionIndex = 0; // Track player's position in the path
-    let balance = 1500; // Player's starting money
-
-// Define Monopoly properties mapped to their respective border squares
-const properties = [
+// Monopoly properties assigned to border squares
+export const properties = [
     { name: "GO", price: 0, rent: 0 },
     { name: "Mediterranean Ave", price: 60, rent: 2 },
     { name: "Community Chest", price: 0, rent: 0 },
@@ -49,17 +44,28 @@ const properties = [
     { name: "Boardwalk", price: 400, rent: 50 }
 ];
 
-// Define movement path along the border (clockwise)
-const path = [
-    // Top row
+// Movement path along the border (clockwise)
+export const path = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    // Right column (down)
     21, 32, 43, 54, 65, 76, 87, 98, 109, 120,
-    // Bottom row (left)
     119, 118, 117, 116, 115, 114, 113, 112, 111, 110,
-    // Left column (up)
     99, 88, 77, 66, 55, 44, 33, 22, 11
 ];
 
-// Export variables to be used in script.js
-export { boardSize, properties, path };
+// Function to create the board grid dynamically
+export function createBoard(board) {
+    for (let i = 0; i < boardSize * boardSize; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.setAttribute("data-index", i);
+
+        // Add property names only to border squares
+        let pathIndex = path.indexOf(i);
+        if (pathIndex !== -1) {
+            cell.innerHTML = `<small>${properties[pathIndex].name}</small>`;
+            cell.classList.add("property-cell");
+        }
+
+        board.appendChild(cell);
+    }
+}
