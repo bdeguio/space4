@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertiesDisplay = document.getElementById("properties");
 
     const boardSize = 11; // 11x11 grid
-    let positionIndex = 0; // Track player's position in the path
+    let positionIndex = 0; // Player's current position index in the path
     let balance = 1500; // Player's starting money
 
-    // Monopoly properties mapped to their respective positions
+    // Monopoly property data mapped to the border squares
     const properties = [
         { name: "GO", price: 0, rent: 0 },
         { name: "Mediterranean Ave", price: 60, rent: 2 },
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Boardwalk", price: 400, rent: 50 }
     ];
 
-    // Define movement path along the border (clockwise)
+    // Define movement path (clockwise along border)
     const path = [
         // Top row
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const cell = document.createElement("div");
         cell.classList.add("cell");
         cell.setAttribute("data-index", i);
-        
-        // Add property info to border squares
+
+        // Add property names only to border squares
         let pathIndex = path.indexOf(i);
         if (pathIndex !== -1) {
             cell.innerHTML = `<small>${properties[pathIndex].name}</small>`;
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let previousIndex = positionIndex; // Save previous position before moving
         positionIndex = (positionIndex + rollTotal) % path.length; // Move forward
 
-        // Check if player completed a loop (passed GO)
+        // Check if player passed GO and collect $200
         if (positionIndex < previousIndex) {
             balance += 200;
             console.log("Passed GO! +$200 added.");
@@ -105,10 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function updatePlayerUI() {
-        // Clear previous player position
+        // Remove previous player marker
         cells.forEach(cell => cell.innerHTML = cell.innerHTML.replace("🚀", ""));
 
-        // Move player to the new position
+        // Move player to new position
         let newPosition = path[positionIndex];
         cells[newPosition].innerHTML += " 🚀"; // Add player marker
 
