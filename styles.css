@@ -12,7 +12,7 @@ body {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(11, 40px);
+    grid-template-columns: repeat(11, 40px); /* Updated for 11x11 */
     grid-template-rows: repeat(11, 40px);
     gap: 2px;
     border: 3px solid black;
@@ -28,4 +28,35 @@ body {
     align-items: center;
     background-color: white;
     position: relative;
+}
+
+.property-cell small {
+    font-size: 8px; /* Shrink property names */
+    text-align: center;
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.property-cell {
+    background-color: #f4f4f4; /* Light gray to distinguish properties */
+}
+
+/* Remove the red position marker */
+.player {
+    display: none;
+}
+
+/* Player marker inside the board (🚀 emoji) */
+.cell::after {
+    content: "";
+    font-size: 12px;
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
 }
