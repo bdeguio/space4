@@ -22,7 +22,7 @@ export function movePlayer(rollTotal) {
 
 export function canBuyProperty() {
     let currentProperty = properties[positionIndex];
-    return currentProperty.price > 0 && !currentProperty.owner && balance >= currentProperty.price;
+    return currentProperty.price > 0 && currentProperty.owner === null && balance >= currentProperty.price;
 }
 
 export function buyProperty() {
