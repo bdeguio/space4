@@ -8,9 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const balanceDisplay = document.getElementById("balance");
     const propertiesDisplay = document.getElementById("properties");
 
-    let positionIndex = 0; // Track player's position in the path
-    let balance = 1500; // Player's starting money
-
     // Create the board dynamically
     for (let i = 0; i < boardSize * boardSize; i++) {
         const cell = document.createElement("div");
