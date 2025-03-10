@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const positionDisplay = document.getElementById("position");
     const balanceDisplay = document.getElementById("balance");
     const propertiesDisplay = document.getElementById("properties");
+    const buyButton = document.getElementById("buyButton");
 
     createBoard(board);
     const cells = document.querySelectorAll(".cell");
