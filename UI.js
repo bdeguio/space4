@@ -11,3 +11,17 @@ export function updateUI(cells, positionDisplay, balanceDisplay, propertiesDispl
     balanceDisplay.textContent = `Balance: $${balance}`;
     propertiesDisplay.textContent = `Current Property: ${currentProperty.name} - Price: $${currentProperty.price}, Rent: $${currentProperty.rent}`;
 }
+
+// Show or hide the buy button
+    if (canBuyProperty()) {
+        buyButton.style.display = "block";
+        buyButton.onclick = () => {
+            if (buyProperty()) {
+                updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay, buyButton);
+                buyButton.style.display = "none";
+            }
+        };
+    } else {
+        buyButton.style.display = "none";
+    }
+}
