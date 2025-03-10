@@ -2,7 +2,7 @@
 
 // Define board size
 const boardSize = 11;
-    let positionIndex = 0; // Track player's position in the path
+    let positionIndex = 1; // Track player's position in the path
     let balance = 1500; // Player's starting money
 
 // Define Monopoly properties mapped to their respective border squares
