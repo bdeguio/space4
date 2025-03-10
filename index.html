@@ -5,28 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monopoly Game</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="board.js"></script>
-    <script defer src="gameLogic.js"></script>
-    <script defer src="UI.js"></script>
     <script defer src="script.js"></script>
 </head>
 <body>
     <h1>Simple Monopoly Game</h1>
     
     <div class="board">
-        <div class="grid"></div>
+        <div class="grid">
+            <!-- 11x11 Grid Board - Cells dynamically generated in script.js -->
+        </div>
     </div>
 
     <button id="rollButton">Roll Dice</button>
-    <button id="buyButton">Buy Property</button>
-
     <p id="diceResult">Roll the dice</p>
     <p id="position">Position: GO</p>
     <p id="balance">Balance: $1500</p>
     <p id="properties">Current Property: GO - Price: $0, Rent: $0</p>
-
-    <div id="ownedProperties">
-        <h3>Owned Properties:</h3>
-    </div>
 </body>
 </html>
