@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const propertiesDisplay = document.getElementById("properties");
     const buyButton = document.getElementById("buyButton");
 
-    const boardSize = 10; // 10x10 grid (100 squares)
+    const boardSize = 11; // 10x10 grid (100 squares)
     let positionIndex = 0; // Track player's position in the path
     let balance = 1500; // Player's starting money
     let ownedProperties = []; // List of player's owned properties
