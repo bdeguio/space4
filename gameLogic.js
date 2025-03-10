@@ -2,7 +2,7 @@ import { path, properties } from "./board.js";
 
 export let positionIndex = 0;
 export let balance = 1500;
-export let ownedProperties = []
+export let ownedProperties = [];
 
 export function rollDice() {
     const roll1 = Math.floor(Math.random() * 6) + 1;
