@@ -1,7 +1,16 @@
-export const boardSize = 11;
+const board = document.querySelector(".grid");
+const boardSize = 11;
+
+// Movement path along the border (clockwise)
+const path = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    21, 32, 43, 54, 65, 76, 87, 98, 109, 120,
+    119, 118, 117, 116, 115, 114, 113, 112, 111, 110,
+    99, 88, 77, 66, 55, 44, 33, 22, 11
+];
 
 // Monopoly properties mapped to border squares
-export const properties = [
+const properties = [
     { name: "GO", price: 0, rent: [0], mortgage: 0, houseCost: 0, owner: null, houses: 0 },
     { name: "Mediterranean Ave", price: 60, rent: [2, 10, 30, 90, 160, 250], mortgage: 30, houseCost: 50, owner: null, houses: 0 },
     { name: "Community Chest", price: 0, rent: [0], mortgage: 0, houseCost: 0, owner: null, houses: 0 },
@@ -40,16 +49,8 @@ export const properties = [
     { name: "Boardwalk", price: 400, rent: [50, 200, 600, 1400, 1700, 2000], mortgage: 200, houseCost: 200, owner: null, houses: 0 }
 ];
 
-// Movement path along the border (clockwise)
-export const path = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    21, 32, 43, 54, 65, 76, 87, 98, 109, 120,
-    119, 118, 117, 116, 115, 114, 113, 112, 111, 110,
-    99, 88, 77, 66, 55, 44, 33, 22, 11
-];
-
 // Function to create the board grid dynamically
-export function createBoard(board) {
+function createBoard(board) {
     for (let i = 0; i < boardSize * boardSize; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
