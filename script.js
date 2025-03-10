@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createBoard(board);
     const cells = document.querySelectorAll(".cell");
-    updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay);
+    updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay, buyButton);
 
     rollButton.addEventListener("click", () => {
         const rollTotal = rollDice();
         diceResult.textContent = `You rolled a ${rollTotal}`;
         movePlayer(rollTotal);
-        updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay);
+        updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay, buyButton);
     });
 });
