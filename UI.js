@@ -1,7 +1,7 @@
 import { path, properties } from "./board.js";
-import { positionIndex, balance, ownedProperties, canBuyProperty, buyProperty } from "./gameLogic.js";
+import { positionIndex, balance } from "./gameLogic.js";
 
-export function updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay, buyButton) {
+export function updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay) {
     cells.forEach(cell => cell.innerHTML = cell.innerHTML.replace("🚀", ""));
     let newPosition = path[positionIndex];
     cells[newPosition].innerHTML += " 🚀";
@@ -9,17 +9,5 @@ export function updateUI(cells, positionDisplay, balanceDisplay, propertiesDispl
     let currentProperty = properties[positionIndex];
     positionDisplay.textContent = `Position: ${currentProperty.name}`;
     balanceDisplay.textContent = `Balance: $${balance}`;
-    propertiesDisplay.textContent = `Owned Properties: ${ownedProperties.length > 0 ? ownedProperties.join(", ") : "None"}`;
-
-    if (canBuyProperty()) {
-        buyButton.style.display = "block";
-        buyButton.onclick = () => {
-            if (buyProperty()) {
-                updateUI(cells, positionDisplay, balanceDisplay, propertiesDisplay, buyButton);
-                buyButton.style.display = "none";
-            }
-        };
-    } else {
-        buyButton.style.display = "none";
-    }
+    propertiesDisplay.textContent = `Current Property: ${currentProperty.name} - Price: $${currentProperty.price}, Rent: $${currentProperty.rent}`;
 }
