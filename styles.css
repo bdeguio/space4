@@ -29,29 +29,3 @@ body {
     background-color: white;
     position: relative;
 }
-
-.property-cell small {
-    font-size: 8px;
-    text-align: center;
-    display: block;
-    position: absolute;
-    top: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    word-wrap: break-word;
-}
-
-.property-cell {
-    background-color: #f4f4f4;
-}
-
-/* Player marker inside the board */
-.cell::after {
-    content: "🚀";
-    font-size: 12px;
-    position: absolute;
-    bottom: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-}
